@@ -22,3 +22,16 @@ print(res)
 o=(json.dumps(xmltodict.parse(res)))
 p=json.loads(o)
 print(p['dwml']['latLonList'])
+
+
+import xmltodict #library to convert the xml to python dictonary
+import json     #library to handle JSON file
+from suds.client import Client  #library to handle SOAP
+print("Connecting")
+client = Client("https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl")  #url to connect API
+print("Connected")
+print(client)
+respose=client.service.LatLonListSquare('39','-77','50','50','20')    #SOAp request 
+json_file_dummy=(json.dumps(xmltodict.parse(respose)))
+final_json=json.loads(json_file_dummy)
+print(final_json['dwml']['latLonList'])
