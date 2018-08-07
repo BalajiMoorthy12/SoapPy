@@ -1,0 +1,24 @@
+
+import xmltodict
+import pprint
+import json
+
+
+from suds.client import Client
+print("Connecting")
+client = Client("https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl")
+print("Connected")
+print(client)
+# =============================================================================
+# HeaderMessage = client.factory.create('ns0:Array')
+# print(HeaderMessage)
+# =============================================================================
+res=client.service.LatLonListZipCode('20106')
+print(res)
+
+
+
+
+o=(json.dumps(xmltodict.parse(res)))
+p=json.loads(o)
+print(p['dwml']['latLonList'])
